@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,6 +25,17 @@ public class WcToolTests {
         String result = wcTool.execute(args);
 
         assertEquals("7145 test.txt", result);
+    }
+
+    @Test
+    void testWordCount() throws IOException {
+        WcTool wcTool = new WcTool();
+        String filePath = "test.txt";
+        String[] args = {"-w", filePath};
+
+        String result = wcTool.execute(args);
+
+        assertEquals("58164 test.txt", result);
     }
 
 }
