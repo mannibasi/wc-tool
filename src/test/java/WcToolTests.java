@@ -38,4 +38,15 @@ public class WcToolTests {
         assertEquals("58164 test.txt", result);
     }
 
+    @Test
+    void testCharCount() throws IOException {
+        WcTool wcTool = new WcTool();
+        String filePath = "test.txt";
+        String[] args = {"-m", filePath};
+
+        String result = wcTool.execute(args);
+
+        assertEquals("342190 test.txt", result);
+    }
+
 }
