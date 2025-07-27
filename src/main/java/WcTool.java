@@ -1,26 +1,40 @@
 import java.io.*;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 
 public class WcTool {
     public String execute(String[] args) throws IOException {
-        InputStream inputStream = getClass().getResourceAsStream(args[1]);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder sb = new StringBuilder();
+        String filename = args[1];
+
         switch (args[0]) {
-            case "-c", "-m" -> {
-                return inputStream.readAllBytes().length + " " + args[1];
-            }
-            case "-l" -> {
-                return reader.lines().count() + " " + args[1];
-            }
-            case "-w" -> {
-                long wordCount = reader.lines()
-                        .flatMap(line -> Arrays.stream(line.trim().split("\\s")))
-                        .filter(word -> !word.isEmpty())
-                        .count();
-                return wordCount + " " + args[1];
-            }
+            case "-c", "-m" -> sb.append(getByteCount(filename)).append(" ");
+            case "-l" -> sb.append(getLineCount(filename)).append(" ");
+            case "-w" -> sb.append(getWordCount(filename)).append(" ");
+            default -> throw new IllegalArgumentException("Unknown option: " + args[0]);
         }
-        throw new IllegalArgumentException("Unknown option: " + args[0]);
+        return sb.append(filename).toString();
+    }
+
+    private long getByteCount(String filename) throws IOException {
+        try (InputStream inputStream = getClass().getResourceAsStream(filename)) {
+            return inputStream.readAllBytes().length;
+        }
+    }
+
+    private long getLineCount(String filename) throws IOException {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(getClass().getResourceAsStream(filename)))) {
+            return reader.lines().count();
+        }
+    }
+
+    private long getWordCount(String filename) throws IOException {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(getClass().getResourceAsStream(filename)))) {
+            return reader.lines()
+                    .flatMap(line -> Arrays.stream(line.trim().split("\\s")))
+                    .filter(word -> !word.isEmpty())
+                    .count();
+        }
     }
 }
