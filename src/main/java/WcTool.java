@@ -7,7 +7,7 @@ public class WcTool {
         InputStream inputStream = getClass().getResourceAsStream(args[1]);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         switch (args[0]) {
-            case "-c" -> {
+            case "-c", "-m" -> {
                 return inputStream.readAllBytes().length + " " + args[1];
             }
             case "-l" -> {
