@@ -49,4 +49,15 @@ public class WcToolTests {
         assertEquals("342190 test.txt", result);
     }
 
+    @Test
+    void testDefaultByteLineAndWordCount() throws IOException {
+        WcTool wcTool = new WcTool();
+        String filePath = "test.txt";
+        String[] args = {"", filePath};
+
+        String result = wcTool.execute(args);
+
+        assertEquals("342190 7145 58164 test.txt", result);
+    }
+
 }
