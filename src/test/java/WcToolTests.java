@@ -50,7 +50,6 @@ public class WcToolTests {
         assertEquals("342190 test.txt", result);
     }
 
-    @Disabled("Temporarily disabled whilst we refactor the code, to make the changes required easier to make")
     @Test()
     void testDefaultByteLineAndWordCount() throws IOException {
         WcTool wcTool = new WcTool();

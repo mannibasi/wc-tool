@@ -10,7 +10,11 @@ public class WcTool {
             case "-c", "-m" -> sb.append(getByteCount(filename)).append(" ");
             case "-l" -> sb.append(getLineCount(filename)).append(" ");
             case "-w" -> sb.append(getWordCount(filename)).append(" ");
-            default -> throw new IllegalArgumentException("Unknown option: " + args[0]);
+            default -> {
+                sb.append(getByteCount(filename)).append(" ")
+                        .append(getLineCount(filename)).append(" ")
+                        .append(getWordCount(filename)).append(" ");
+            }
         }
         return sb.append(filename).toString();
     }
