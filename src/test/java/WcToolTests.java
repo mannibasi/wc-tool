@@ -1,64 +1,57 @@
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WcToolTests {
+    private static final String TEST_FILE = WcToolTests.class.getResource("/test.txt").getFile();
+
     @Test
     void testByteCount() throws IOException {
         WcTool wcTool = new WcTool();
-        String filePath = "test.txt";
-        String[] args = {"-c", filePath};
+        String[] args = {"-c", TEST_FILE};
 
         String result = wcTool.execute(args);
 
-        assertEquals("342190 test.txt", result);
+        assertEquals("342190 " + TEST_FILE, result);
     }
 
     @Test
     void testLineCount() throws IOException {
         WcTool wcTool = new WcTool();
-        String filePath = "test.txt";
-        String[] args = {"-l", filePath};
+        String[] args = {"-l", TEST_FILE};
 
         String result = wcTool.execute(args);
 
-        assertEquals("7145 test.txt", result);
+        assertEquals("7145 " + TEST_FILE, result);
     }
 
     @Test
     void testWordCount() throws IOException {
         WcTool wcTool = new WcTool();
-        String filePath = "test.txt";
-        String[] args = {"-w", filePath};
+        String[] args = {"-w", TEST_FILE};
 
         String result = wcTool.execute(args);
 
-        assertEquals("58164 test.txt", result);
+        assertEquals("58164 " + TEST_FILE, result);
     }
 
     @Test
     void testCharCount() throws IOException {
         WcTool wcTool = new WcTool();
-        String filePath = "test.txt";
-        String[] args = {"-m", filePath};
+        String[] args = {"-m", TEST_FILE};
 
         String result = wcTool.execute(args);
 
-        assertEquals("342190 test.txt", result);
+        assertEquals("342190 " + TEST_FILE, result);
     }
 
-    @Test()
+    @Test
     void testDefaultByteLineAndWordCount() throws IOException {
         WcTool wcTool = new WcTool();
-        String filePath = "test.txt";
-        String[] args = {"", filePath};
+        String[] args = {"", TEST_FILE};
 
         String result = wcTool.execute(args);
 
-        assertEquals("342190 7145 58164 test.txt", result);
+        assertEquals("342190 7145 58164 " + TEST_FILE, result);
     }
-
 }
