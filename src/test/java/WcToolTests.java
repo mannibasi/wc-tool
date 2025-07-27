@@ -1,5 +1,10 @@
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WcToolTests {
@@ -53,5 +58,23 @@ public class WcToolTests {
         String result = wcTool.execute(args);
 
         assertEquals("342190 7145 58164 " + TEST_FILE, result);
+    }
+
+    @Test
+    void testByteCountFromStdin() throws IOException {
+        String input = "hello\nworld\n";
+        InputStream originalIn = System.in;
+
+        try {
+            System.setIn(new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8)));
+
+            WcTool wcTool = new WcTool();
+            String[] args = {"-c", "-"};
+
+            String result = wcTool.execute(args);
+            assertEquals("12", result.trim());
+        } finally {
+            System.setIn(originalIn);
+        }
     }
 }
