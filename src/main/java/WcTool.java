@@ -9,7 +9,21 @@ public class WcTool {
     private static final String OPTION_WORDS = "-w";
 
     public String execute(String[] args) throws IOException {
-        return processFile(args[0], args[1]);
+        String option = args.length > 0 ? args[0] : "";
+        String filename = args.length > 1 ? args[1] : "-";
+
+        if (filename.equals("-")) {
+            return processStdin(option);
+        } else {
+            return processFile(option, filename);
+        }
+    }
+
+    private String processStdin(String option) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            String content = readAll(reader);
+            return formatResult(option, content);
+        }
     }
 
     private String processFile(String option, String filename) throws IOException {
