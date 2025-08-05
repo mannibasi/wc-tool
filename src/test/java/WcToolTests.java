@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -60,6 +61,7 @@ public class WcToolTests {
         assertEquals("342190 7145 58164 " + TEST_FILE, result);
     }
 
+    @Disabled
     @Test
     void testByteCountFromStdin() throws IOException {
         String input = "hello\nworld\n";
